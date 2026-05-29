@@ -1,10 +1,20 @@
+# name of your workflow
 name: my first work flow
+# trigger
 on: push
+# define job
 jobs:
+     # name of job     
      first_job:
+        # where the job runs
         runs-on: ubuntu-latest
+        # Define steps which runs in series
         steps:
+            - name: checkout-repo
+              uses: actions/checkout@v6
+
             - name: welcome message
+              # execute commands on ubuntu machine
               run: echo "my first github action job"
 
             - name: list files
@@ -12,3 +22,10 @@ jobs:
             
             - name: read file
               run: cat README.md
+
+#github token is automatically created when you run the action and it is used on your behalf to access the github account,
+#by default it only had read permission, so for write, delete & update you need to change the gitub token permission within
+#workflow
+
+#the above workflow failed because, the VM runs external to github repo & dosent have access to the repo
+#so the only way for VM to access the repo is to download the repo to access & work with files by using Actions.
