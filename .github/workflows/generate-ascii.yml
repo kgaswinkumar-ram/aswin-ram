@@ -1,0 +1,18 @@
+name: generate ascii artwork
+on: push
+jobs:
+    ascii_job:
+        runs-on: ubuntu-latest
+        steps:
+        - name: checkout-repo
+          uses: actions/checkout@v4
+        - name: install cowsay program
+          run: sudo apt-get install cowsay -y
+        - name: excute cowsay cmd
+          run: cowsay -f dog "I miss u RAM" >> ram.txt
+        - name: test file exists
+          run: grep -i "RAM" ram.txt
+        - name: read file
+          run: cat ram.txt
+        - name: list repo file
+          run: ls -ltra
