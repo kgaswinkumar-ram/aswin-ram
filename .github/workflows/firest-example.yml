@@ -10,22 +10,23 @@ jobs:
         runs-on: ubuntu-latest
         # Define steps which runs in series
         steps:
+              #using actions/checkout becoz the VM runs external to github repo & dosent have access to the repo
+              #so the only way for VM to access the repo is to download the repo to access & work with files by using actions/checkout
             - name: checkout-repo
               uses: actions/checkout@v6
 
             - name: welcome message
-              # execute commands on ubuntu machine
-              run: echo "my first github action job"
+              # execute multi commands in single step, without | cmd willnot work
+              run: |
+               echo "This is my 1st Github-Action"
+               ls -ltra
+               cat README.md
 
-            - name: list files
-              run: ls
-            
-            - name: read file
-              run: cat README.md
+               #using 3rd-party library make sure you install the required software inside ur VM
+            - name: Generate ASCII artwork 
+              run: cowsay -f dog "I miss u RAM" >> ram.txt
+
 
 #github token is automatically created when you run the action and it is used on your behalf to access the github account,
 #by default it only had read permission, so for write, delete & update you need to change the gitub token permission within
 #workflow
-
-#the above workflow failed because, the VM runs external to github repo & dosent have access to the repo
-#so the only way for VM to access the repo is to download the repo to access & work with files by using Actions.
