@@ -9,7 +9,7 @@ jobs:
         - name: install cowsay program
           run: sudo apt-get install cowsay -y
         - name: excute cowsay cmd
-          run: cowsay -f dog "I miss u RAM" >> ram.txt
+          run: cowsay -f dragon "I miss u RAM" >> ram.txt
         - name: test file exists
           run: grep -i "RAM" ram.txt
         - name: read file
