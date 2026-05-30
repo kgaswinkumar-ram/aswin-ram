@@ -1,7 +1,7 @@
 name: generate ascii artwork
 on: push
 jobs:
-    ascii_job:
+    build_job1:
         runs-on: ubuntu-latest
         steps:
         - name: checkout-repo
@@ -13,5 +13,17 @@ jobs:
           run: |
            chmod +x ascii-script.sh
            ./ascii-script.sh
+    test_job2:
+      runs-on: ubuntu-latest
+      steps:
+        - name: sleep for 10secs
+          run: sleep 10
+        - name: test file exists
+          run: grep -i "RAM" ram.txt
+    deploy_job3:
+      runs-on: ubuntu-latest
+      steps:
+        - name: deploy
+          run: echo Deploying..
 
         
