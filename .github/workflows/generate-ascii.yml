@@ -6,13 +6,12 @@ jobs:
         steps:
         - name: checkout-repo
           uses: actions/checkout@v4
-        - name: install cowsay program
-          run: sudo apt-get install cowsay -y
-        - name: excute cowsay cmd
-          run: cowsay -f dragon "I miss u RAM" >> ram.txt
-        - name: test file exists
-          run: grep -i "RAM" ram.txt
-        - name: read file
-          run: cat ram.txt
         - name: list repo file
           run: ls -ltra
+        - name: execute shell script with permission
+        #without permision you will get error while execution, so permission is mandatory
+          run: |
+           chmod +x ascii-script.sh
+           ./ascii-script.sh
+
+        
