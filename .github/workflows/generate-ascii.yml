@@ -6,13 +6,19 @@ jobs:
         steps:
         - name: checkout-repo
           uses: actions/checkout@v4
-        - name: list repo file
-          run: ls -ltra
         - name: execute shell script with permission
         #without permision you will get error while execution, so permission is mandatory
           run: |
            chmod +x ascii-script.sh
            ./ascii-script.sh
+        - name: upload ram text file
+          uses: actions/upload-artifact@v7
+          with:
+            name: my-artifact
+            path: ram.txt
+
+
+
     test_job2:
       #by default jobs are runnig in parallel in diff VM and each job runs on its own vm
       #to run jobs in sequential ordeer we use "needs"
@@ -20,14 +26,23 @@ jobs:
       needs: build_job1
       runs-on: ubuntu-latest
       steps:
-        - name: sleep for 10secs
-          run: sleep 10
+        - name: download ram text file
+          uses: actions/download-artifact@v8
+          with:
+            name: my-artifact
         - name: test file exists
           run: grep -i "RAM" ram.txt
+
+
+          
     deploy_job3:
       needs: [test_job2]
       runs-on: ubuntu-latest
       steps:
+        - name: download ram text file
+          uses: actions/download-artifact@v8
+          with:
+            name: my-artifact
         - name: read file
-          run: cat
+          run: cat ram.txt
         
