@@ -14,6 +14,10 @@ jobs:
            chmod +x ascii-script.sh
            ./ascii-script.sh
     test_job2:
+      #by default jobs are runnig in parallel in diff VM and each job runs on its own vm
+      #to run jobs in sequential ordeer we use "needs"
+      #if a job is dependent on multiple job we can use array(list) also.
+      needs: build_job1
       runs-on: ubuntu-latest
       steps:
         - name: sleep for 10secs
@@ -21,6 +25,7 @@ jobs:
         - name: test file exists
           run: grep -i "RAM" ram.txt
     deploy_job3:
+      needs: test_job2
       runs-on: ubuntu-latest
       steps:
         - name: deploy
