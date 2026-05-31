@@ -45,4 +45,3 @@ jobs:
             name: my-artifact
         - name: read file
           run: cat ram.txt
-        
