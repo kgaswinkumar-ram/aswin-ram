@@ -25,10 +25,9 @@ jobs:
         - name: test file exists
           run: grep -i "RAM" ram.txt
     deploy_job3:
-      needs: test_job2
+      needs: [test_job2]
       runs-on: ubuntu-latest
       steps:
-        - name: deploy
-          run: echo Deploying..
-
+        - name: read file
+          run: cat
         
