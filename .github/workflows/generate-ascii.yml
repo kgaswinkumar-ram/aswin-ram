@@ -11,9 +11,11 @@ jobs:
           run: |
            chmod +x ascii-script.sh
            ./ascii-script.sh
+        #upload file/content b/w jobs and store data even after workflow is completed
         - name: upload ram text file
           uses: actions/upload-artifact@v7
           with:
+            #the same name should be given in download artifact
             name: my-artifact
             path: ram.txt
 
@@ -26,9 +28,11 @@ jobs:
       needs: build_job1
       runs-on: ubuntu-latest
       steps:
+          #download file/content from the uploaded job
         - name: download ram text file
           uses: actions/download-artifact@v8
           with:
+            #name should be same as in upload job
             name: my-artifact
         - name: test file exists
           run: grep -i "RAM" ram.txt
@@ -39,9 +43,11 @@ jobs:
       needs: [test_job2]
       runs-on: ubuntu-latest
       steps:
+          #download file/content from the uploaded job
         - name: download ram text file
           uses: actions/download-artifact@v8
           with:
+             #name should be same as in upload job
             name: my-artifact
         - name: read file
           run: cat ram.txt
