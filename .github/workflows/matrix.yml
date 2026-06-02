@@ -9,7 +9,7 @@ jobs:
       #prevents cancelling all in-progress job if any matrix job fails
       fail-fast: false
       #runs 3 jobs simultaneously instead of all jobs in parallel
-      max-parallel: 3
+      max-parallel: 6
       #samejob->multi os->multi version
       #runs multi job parallely under single job
       matrix:
