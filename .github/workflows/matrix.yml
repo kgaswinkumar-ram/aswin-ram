@@ -6,11 +6,23 @@ on:
 jobs:
   deploy:
     strategy:
+      #prevents cancelling all in-progress job if any matrix job fails
+      fail-fast: false
+      #runs 3 jobs simultaneously instead of all jobs in parallel
+      max-parallel: 3
       #samejob->multi os->multi version
       #runs multi job parallely under single job
       matrix:
         os: [ubuntu-latest, ubuntu-20.04, windows-latest]
         images: [hello-world, alpine]
+        #restrict certain image on a certain os
+        exclude:
+          - images: alpine
+            os: windows-latest
+        #run particular image on a particular os
+        include:
+          - images: amd64/alpine
+            os: ubuntu-20.04
 
     runs-on: ${{ matrix.os }}
 
